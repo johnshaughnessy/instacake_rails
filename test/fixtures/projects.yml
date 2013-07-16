@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  insta_vid_uri: MyString
+  insta_thumb_uri: MyString
+  local_vid_uri: MyString
+  local_thumb_uri: MyString
+  title: MyString
+
+two:
+  insta_vid_uri: MyString
+  insta_thumb_uri: MyString
+  local_vid_uri: MyString
+  local_thumb_uri: MyString
+  title: MyString
