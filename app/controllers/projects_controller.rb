@@ -31,15 +31,20 @@ class ProjectsController < ApplicationController
 
   def get_projects_list
     user = User.find_by_insta_id(params[:insta_id])
-    render status: 200, json: { user: user.to_json,
-                                projects: user.projects.to_json }
+    if user
+      render status: 200, json: { user: user.to_json,
+                                  projects: user.projects.to_json }
+    else
+      render status: 403, json: { message: "Failed to locate user." }
+    end
+    
   end
 
   def get_videos_for_project
     project = Project.find_by_id(params[:id])
     if project
       render status: 200, json: { project: project.to_json,
-                                videos: project.videos.to_json }
+                                  videos: project.videos.to_json }
     else
       render status: 403, json: { message: "Failed to find the project." }
     end
@@ -50,7 +55,10 @@ class ProjectsController < ApplicationController
     user = User.find_by_insta_id(params[:insta_user_id])
     project = Project.find_by_id(params[:project_id])
     video = user.videos.create(params[:video])
-    if video.save
+    vp_assignment = VpAssignment.create
+    vp_assignment.user = user
+    vp_assignment.project = project
+    if vp_assignment.save
       render status: 200, json: { message: "Video saved and added to project.",
                                   user: user.to_json,
                                   project: project.to_json,
