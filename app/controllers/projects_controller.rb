@@ -44,7 +44,7 @@ class ProjectsController < ApplicationController
   def create_video_and_add_to_project
     user = User.find_by_insta_id(params[:insta_user_id])
     project = Project.find_by_id(params[:project_id])
-    video = user.create(params[:video])
+    video = user.videos.create(params[:video])
     if video.save
 
     else
