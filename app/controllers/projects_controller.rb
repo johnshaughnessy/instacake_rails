@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
   end
 
   def add_user
-    user = User.find_by_insta_id(params[:insta_id])
+    user = User.find_by_insta_id(params[:user_insta_id])
     project = Project.find_by_id(params[:project_id])
     if project and user 
       assignment = Assignment.create
@@ -27,5 +27,29 @@ class ProjectsController < ApplicationController
     else
       render status: 403, json: { message: "Error finding user or project from params" }
     end
+  end
+
+  def get_projects_list
+    user = User.find_by_insta_id(params[:insta_id])
+    render status: 200, json: { user: user.to_json,
+                                projects: user.projects.to_json }
+  end
+
+  def get_videos_for_project
+    project = Project.find_by_id(params[:id])
+    render status: 200, json: { project: project.to_json,
+                                videos: project.videos.to_json }
+  end
+
+  def create_video_and_add_to_project
+    user = User.find_by_insta_id(params[:insta_user_id])
+    project = Project.find_by_id(params[:project_id])
+    video = user.create(params[:video])
+    if video.save
+
+    else
+      render status: 403, json: { message: "Could not save video." }
+    end
+
   end
 end

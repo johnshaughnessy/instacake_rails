@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130716104630) do
+ActiveRecord::Schema.define(:version => 20130717221918) do
 
   create_table "assignments", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -21,19 +21,29 @@ ActiveRecord::Schema.define(:version => 20130716104630) do
   end
 
   create_table "projects", :force => true do |t|
-    t.string   "insta_vid_uri"
-    t.string   "insta_thumb_uri"
-    t.string   "local_vid_uri"
-    t.string   "local_thumb_uri"
     t.string   "title"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
     t.integer  "insta_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "videos", :force => true do |t|
+    t.string   "insta_id"
+    t.string   "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "user_id"
+  end
+
+  create_table "vp_assignments", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "project_id"
+    t.integer  "video_id"
   end
 
 end
