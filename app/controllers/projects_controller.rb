@@ -17,7 +17,7 @@ class ProjectsController < ApplicationController
       assignment.user = user
       assignment.project = project
       if assignment.save
-        render status: 200, json: { message: "User \n" + user.to_json + "\n added to project \n" + project.to_json + "\n so that the project now has the following users: \n" + project.users.to_json,
+        render status: 200, json: { message: "User successfully added to project.",
                                     user: user.to_json,
                                     project: project.to_json,
                                     project_users: project.users.to_json }
