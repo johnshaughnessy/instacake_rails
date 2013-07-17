@@ -2,7 +2,8 @@ class ProjectsController < ApplicationController
   def create 
     project = Project.create(params[:project])
     if project.save
-      render status: 200, json: { message: "Created project: \n" + project.to_json }
+      render status: 200, json: { message: "Project saved successfully",
+                                  project: project.to_json }
     else
       render status: 403, json: { message: "Error creating project." }
     end
