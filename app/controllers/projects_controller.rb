@@ -41,7 +41,7 @@ class ProjectsController < ApplicationController
   end
 
   def get_videos_for_project
-    project = Project.find_by_id(params[:id])
+    project = Project.find_by_id(params[:project_id])
     if project
       render status: 200, json: { project: project.to_json,
                                   videos: project.videos.to_json }
@@ -56,7 +56,7 @@ class ProjectsController < ApplicationController
     project = Project.find_by_id(params[:project_id])
     video = user.videos.create(params[:video])
     vp_assignment = VpAssignment.create
-    vp_assignment.user = user
+    vp_assignment.video = video
     vp_assignment.project = project
     if vp_assignment.save
       render status: 200, json: { message: "Video saved and added to project.",
