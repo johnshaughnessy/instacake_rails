@@ -46,7 +46,10 @@ class ProjectsController < ApplicationController
     project = Project.find_by_id(params[:project_id])
     video = user.videos.create(params[:video])
     if video.save
-
+      render status: 200, json: { message: "Video saved and added to project.",
+                                  user: user.to_json,
+                                  project: project.to_json,
+                                  video: video.to_json }
     else
       render status: 403, json: { message: "Could not save video." }
     end
