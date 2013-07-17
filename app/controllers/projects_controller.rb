@@ -37,8 +37,13 @@ class ProjectsController < ApplicationController
 
   def get_videos_for_project
     project = Project.find_by_id(params[:id])
-    render status: 200, json: { project: project.to_json,
+    if project
+      render status: 200, json: { project: project.to_json,
                                 videos: project.videos.to_json }
+    else
+      render status: 403, json: { message: "Failed to find the project." }
+    end
+    
   end
 
   def create_video_and_add_to_project
