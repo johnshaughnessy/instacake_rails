@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   has_many :assignments
   has_many :projects, through: :assignments
-
   has_many :videos
+
+  validates :insta_id, uniqueness: true;
 end
