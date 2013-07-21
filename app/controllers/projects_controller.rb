@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
 
   def add_user
     user = User.find_or_create_by_uid_and_username(params[:user_uid], params[:username])
-    project = Project.find_by_uid(params[:project_uid])
+    project = Project.find_by_uid(params[:project_uid]) 
     if project and user 
       assignment = Assignment.create
       assignment.user = user
