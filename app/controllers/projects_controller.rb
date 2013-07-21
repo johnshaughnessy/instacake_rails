@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
   end
 
   def add_user
-    user = User.find_by_insta_id(params[:user_uid])
+    user = User.find_or_create_by_uid_and_username(params[:user_uid], params[:username])
     project = Project.find_by_uid(params[:project_uid])
     if project and user 
       assignment = Assignment.create
@@ -32,7 +32,7 @@ class ProjectsController < ApplicationController
   end
 
   def get_projects_list
-    user = User.find_by_insta_id(params[:insta_id])
+    user = User.find_by_uid(params[:user_uid])
     if user
       render status: 200, json: { user: user.to_json,
                                   projects: user.projects.to_json }
@@ -43,7 +43,7 @@ class ProjectsController < ApplicationController
   end
 
   def get_videos_for_project
-    project = Project.find_by_id(params[:project_id])
+    project = Project.find_by_uid(params[:project_uid])
     if project
       render status: 200, json: { project: project.to_json,
                                   videos: project.videos.to_json }
@@ -54,8 +54,8 @@ class ProjectsController < ApplicationController
   end
 
   def create_video_and_add_to_project
-    user = User.find_by_insta_id(params[:insta_user_id])
-    project = Project.find_by_id(params[:project_id])
+    user = User.find_by_uid(params[:user_uid])
+    project = Project.find_by_uid(params[:project_uid])
     video = user.videos.create(params[:video])
     vp_assignment = VpAssignment.create
     vp_assignment.video = video

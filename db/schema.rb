@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130717221918) do
+ActiveRecord::Schema.define(:version => 20130721074432) do
 
   create_table "assignments", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -24,12 +24,14 @@ ActiveRecord::Schema.define(:version => 20130717221918) do
     t.string   "title"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "uid"
   end
 
   create_table "users", :force => true do |t|
-    t.integer  "insta_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "uid"
+    t.string   "username"
   end
 
   create_table "videos", :force => true do |t|
