@@ -10,8 +10,8 @@ class ProjectsController < ApplicationController
   end
 
   def add_user
-    user = User.find_by_insta_id(params[:user_insta_id])
-    project = Project.find_by_id(params[:project_id])
+    user = User.find_by_insta_id(params[:user_uid])
+    project = Project.find_by_uid(params[:project_uid])
     if project and user 
       assignment = Assignment.create
       assignment.user = user
@@ -22,10 +22,12 @@ class ProjectsController < ApplicationController
                                     project: project.to_json,
                                     project_users: project.users.to_json }
       else
-        render status: 403, json: { message: "Error saving assignment between \n" + user.to_json + "\n and \n" + project.to_json }
+        render status: 403, json: { message: "Error saving assignment.",
+                                    user: user.to_json,
+                                    project: project.to_json }
       end
     else
-      render status: 403, json: { message: "Error finding user or project from params" }
+      render status: 403, json: { message: "Error finding user or project from params." }
     end
   end
 

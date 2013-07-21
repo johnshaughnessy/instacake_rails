@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  attr_accessible :title
+  attr_accessible :title, :uid
 
   has_many :assignments
   has_many :users, through: :assignments
