@@ -5,5 +5,5 @@ class User < ActiveRecord::Base
   has_many :projects, through: :assignments
   has_many :videos
 
-  validates :insta_id, uniqueness: true;
+  validates :uid, uniqueness: true;
 end
