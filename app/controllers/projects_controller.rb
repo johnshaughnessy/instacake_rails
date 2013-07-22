@@ -34,7 +34,8 @@ class ProjectsController < ApplicationController
   def get_projects_list
     user = User.find_by_uid(params[:user_uid])
     if user
-      render status: 200, json: { user: user.to_json,
+      render status: 200, json: { message: "Returning projects list",
+                                  user: user.to_json,
                                   projects: user.projects.to_json }
     else
       render status: 403, json: { message: "Failed to locate user." }
