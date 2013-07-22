@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def create
-    user = User.find_or_create(params[:user])
+    user = User.find_or_create_by_uid_and_username(params[:user][:uid], params[:user][:username])
     if user.save
       render status: 200, json: { message: "User created: \n" + user.inspect }
     else
