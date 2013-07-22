@@ -54,6 +54,16 @@ class ProjectsController < ApplicationController
     
   end
 
+  def get_users_for_project
+    project = Project.find_by_uid(params[:project_uid])
+    if project
+      render status: 200, json: { project: protect.to_json,
+                                  users: project.users.to_json}
+    else
+      render status: 403, json: { message: "Failed to find the project." }
+    end
+  end
+
   def create_video_and_add_to_project
     user = User.find_by_uid(params[:user_uid])
     project = Project.find_by_uid(params[:project_uid])
