@@ -57,7 +57,7 @@ class ProjectsController < ApplicationController
   def get_users_for_project
     project = Project.find_by_uid(params[:project_uid])
     if project
-      render status: 200, json: { project: protect.to_json,
+      render status: 200, json: { project: project.to_json,
                                   users: project.users.to_json}
     else
       render status: 403, json: { message: "Failed to find the project." }
