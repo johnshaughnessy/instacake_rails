@@ -57,7 +57,7 @@ class ProjectsController < ApplicationController
   def create_video_and_add_to_project
     user = User.find_by_uid(params[:user_uid])
     project = Project.find_by_uid(params[:project_uid])
-    video = user.videos.create(params[:video])
+    video = user.videos.find_or_create_by_uid(params[:video][:uid])
     vp_assignment = VpAssignment.create
     vp_assignment.video = video
     vp_assignment.project = project
