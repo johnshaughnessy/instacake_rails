@@ -20,6 +20,7 @@ class ProjectsController < ApplicationController
                                   projects: user.projects.to_json }
     else
       render status: 403, json: { message: "Failed to locate user." }
+    end
   end
 
   def create 
