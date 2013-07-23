@@ -1,5 +1,15 @@
 Instacake::Application.routes.draw do
 
+  get '/projects/get_project', to: 'projects#get_project'
+  get '/projects/get_all_projects', to: 'projects#get_all_projects'
+
+  post '/projects/', to: 'projects#create'
+
+  post '/users/add_to_project', to: 'users#add_to_project'
+  post '/videos/add_to_project', to: 'videos#add_to_project'
+
+
+
 
   post '/projects/create',                               to: 'projects#create'
   post '/projects/add_user',                             to: 'projects#add_user'

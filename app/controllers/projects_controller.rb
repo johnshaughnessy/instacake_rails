@@ -1,4 +1,27 @@
 class ProjectsController < ApplicationController
+
+  def get_project
+    project = Project.find_by_uid(params[:project_uid])
+    if project
+      render status: 200, json: { message: "Returning project details.",
+                                  project: project.to_json,
+                                  videos: project.videos.to_json,
+                                  users: project.users.to_json }
+    else
+      render status: 403, json: { message: "Unable to locate project with uid: " + params[:project_uid] }
+    end
+  end
+
+  def get_all_projects
+    user = User.find_by_uid(params[:user_uid])
+    if user
+      render status: 200, json: { message: "Returning projects list",
+                                  user: user.to_json,
+                                  projects: user.projects.to_json }
+    else
+      render status: 403, json: { message: "Failed to locate user." }
+  end
+
   def create 
     project = Project.create(params[:project])
     if project.save
@@ -18,8 +41,8 @@ class ProjectsController < ApplicationController
       assignment.project = project
       if assignment.save
         render status: 200, json: { message: "User successfully added to project.",
-                                    user: user.to_json,
                                     project: project.to_json,
+                                    user: user.to_json,
                                     project_users: project.users.to_json }
       else
         render status: 403, json: { message: "Error saving assignment.",
@@ -40,7 +63,6 @@ class ProjectsController < ApplicationController
     else
       render status: 403, json: { message: "Failed to locate user." }
     end
-    
   end
 
   def get_videos_for_project
@@ -58,6 +80,7 @@ class ProjectsController < ApplicationController
     project = Project.find_by_uid(params[:project_uid])
     if project
       render status: 200, json: { project: project.to_json,
+                                  videos: project.videos.to_json,
                                   users: project.users.to_json}
     else
       render status: 403, json: { message: "Failed to find the project." }
