@@ -33,7 +33,7 @@ class VideosController < ApplicationController
   def remove_from_project    
     user = User.find_by_uid(params[:user_uid])
     project = Project.find_by_uid(params[:project_uid])
-    video = user.videos.find(params[:video])
+    video = user.videos.find_by_uid(params[:video][:uid])
     vp = VpAssignment.find_by_project_id_and_video_id(project.id, video.id)
 
     if vp.destroy
