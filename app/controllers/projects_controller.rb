@@ -103,6 +103,23 @@ class ProjectsController < ApplicationController
     else
       render status: 403, json: { message: "Could not save video." }
     end
+  end
 
+  def change_title
+    project = Project.find_by_uid(params[:project_uid])
+    if project 
+      project.title = params[:title]
+      if project.save
+        render status: 200, json: { message: "Project title updated. Returning details",
+                                    project: project.to_json,
+                                    videos: project.videos.to_json,
+                                    users: project.users.to_json }
+      else
+        render status: 403, json: { message: "Unable to update project title to : " + params[:title],
+                                    project: project.to_json }
+      end
+    else
+      render status: 403, json: { message: "Unable to find project with uid: " + params[:project_uid] }
+    end
   end
 end

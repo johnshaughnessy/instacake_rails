@@ -29,4 +29,20 @@ class VideosController < ApplicationController
       render status: 403, json: { message: "Could not save video." }
     end
   end
+
+  def remove_from_project    
+    user = User.find_by_uid(params[:user_uid])
+    project = Project.find_by_uid(params[:project_uid])
+    video = user.videos.find(params[:video])
+    vp = VpAssignment.find_by_project_id_and_video_id(project.id, video.id)
+
+    if vp.destroy
+      render status: 200, json: { message: "Video removed from project.",
+                                  user: user.to_json,
+                                  project: project.to_json,
+                                  video: video.to_json }
+    else
+      render status: 403, json: { message: "Could not remove video." }
+    end
+  end
 end
